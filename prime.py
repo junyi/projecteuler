@@ -20,7 +20,6 @@ def factorize(n):
 	while n > 1:
 		is_prime = True
 		for i in myxrange(2, int(math.sqrt(n)) + 1):
-			# print i, n
 			if n % i == 0:
 				n /= i
 				fact.insert(i)
@@ -32,28 +31,46 @@ def factorize(n):
 
 	return fact
 
+def divisors(n):
+	divs = set()
+	if n <= 1:
+		return divs
+
+	divs.add(1)
+	divs.add(n)
+	for i in myxrange(2, int(math.sqrt(n)) + 1):
+		if n % i == 0:
+			divs.add(i)
+			divs.add(n / i)
+			is_prime = False
+
+	return divs
+
 def rad(n):
 	factors = factorize(n).factors
 	product = 1
 	for i in factors.keys():
 		product *= i
-	return product 
+	return product
 
 def myxrange(a1, a2=None, step=1):
-    if a2 is None:
-        start, last = 0, a1
-    else:
-        start, last = a1, a2
-    while cmp(start, last) == cmp(0, step):
-        yield start
-        start += step
+	if a2 is None:
+		start, last = 0, a1
+	else:
+		start, last = a1, a2
+	while cmp(start, last) == cmp(0, step):
+		yield start
+		start += step
 
 
 def is_prime(n):
+	if n <= 1:
+		return False
+
 	for i in range(2, int(math.sqrt(n)) + 1):
 		if n % i == 0:
-			return True
-	return False
+			return False
+	return True
 
 if __name__ == '__main__':
 	ans = 0
